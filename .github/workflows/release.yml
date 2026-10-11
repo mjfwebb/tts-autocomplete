@@ -42,10 +42,11 @@ jobs:
             exit 1
           fi
 
-      - name: Build the zips
+      - name: Build the zips and the userscript
         run: |
           pnpm zip
           pnpm zip:firefox
+          pnpm build:userscript
 
       - name: Create the release
         env:
@@ -55,4 +56,5 @@ jobs:
             --title "$GITHUB_REF_NAME" \
             --generate-notes \
             .output/*-chrome.zip \
-            .output/*-firefox.zip
+            .output/*-firefox.zip \
+            .output/tts-autocomplete.user.js

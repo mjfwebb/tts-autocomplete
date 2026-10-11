@@ -12,7 +12,7 @@ This file is for people who work on the extension. To install it, see the [READM
 6. Start a development browser with `pnpm dev`, or with `pnpm dev:firefox` for Firefox.
 7. After you change `assets/icon.svg`, run `pnpm icons` to render the PNG icons again.
 
-To make a production build, run `pnpm build` for Chrome and Brave, or `pnpm build:firefox` for Firefox. The output goes to `.output/`. To make a zip file for a store upload, run `pnpm zip` or `pnpm zip:firefox`.
+To make a production build, run `pnpm build` for Chrome and Brave, `pnpm build:firefox` for Firefox, or `pnpm build:userscript` for the userscript. The output goes to `.output/`. To make a zip file for a store upload, run `pnpm zip` or `pnpm zip:firefox`.
 
 The CI workflow in `.github/workflows/ci.yml` runs on every push to `main` and on every pull request. It runs lint, the format check, fallow, the type check, the tests and both builds.
 
@@ -24,25 +24,28 @@ The CI workflow in `.github/workflows/ci.yml` runs on every push to `main` and o
 
 Step 2 changes the version in `package.json`, commits it with a message such as "Release v0.2.0", and creates the matching tag, such as `v0.2.0`. npm comes with Node.js, and it refuses to run if you have uncommitted changes.
 
-The tag starts the release workflow in `.github/workflows/release.yml`. It runs the CI checks and makes sure that the tag matches the version in `package.json`. Then it builds the Chrome and Firefox zips and attaches them to a new GitHub release with generated notes. If the tag and the version do not match, the workflow stops before it creates a release.
+The tag starts the release workflow in `.github/workflows/release.yml`. It runs the CI checks and makes sure that the tag matches the version in `package.json`. Then it builds the Chrome and Firefox zips and the userscript, and attaches them to a new GitHub release with generated notes. If the tag and the version do not match, the workflow stops before it creates a release.
 
 The Firefox zip is not signed, so Firefox only installs it as a temporary add-on.
 
 ## Layout
 
-| Path                        | Contents                                                                                |
-| --------------------------- | --------------------------------------------------------------------------------------- |
-| `src/modifiers.ts`          | The modifier table. Its patterns match the server's syntax.                             |
-| `src/parser.ts`             | Token classification, completions and argument hints.                                   |
-| `entrypoints/background.ts` | Fetches and caches the voice and sound names.                                           |
-| `src/meta.ts`               | The fetch and cache logic.                                                              |
-| `entrypoints/content.ts`    | The content script for twitch.tv.                                                       |
-| `src/editor.ts`             | Reads and replaces text in the chat input.                                              |
-| `src/types.ts`              | The data types and the message name shared by both scripts.                             |
-| `src/popup.ts`              | The suggestion popup.                                                                   |
-| `tests/`                    | Unit tests for the parser and for the fetch and cache logic.                            |
-| `assets/icon.svg`           | Source for the PNG icons in `public/icon/`. It uses the Segoe UI Black font.            |
-| `scripts/build-icons.ts`    | Renders the icon SVG to PNG. It falls back to Arial Black if Segoe UI Black is missing. |
+| Path                          | Contents                                                                                |
+| ----------------------------- | --------------------------------------------------------------------------------------- |
+| `src/modifiers.ts`            | The modifier table. Its patterns match the server's syntax.                             |
+| `src/parser.ts`               | Token classification, completions and argument hints.                                   |
+| `entrypoints/background.ts`   | Fetches and caches the voice and sound names.                                           |
+| `src/meta.ts`                 | The fetch and cache logic.                                                              |
+| `src/app.ts`                  | The autocomplete itself. The extension and the userscript both run it.                  |
+| `userscript/main.ts`          | The userscript version. It uses the userscript manager for requests and storage.        |
+| `scripts/build-userscript.ts` | Builds the userscript and its `==UserScript==` header.                                  |
+| `entrypoints/content.ts`      | The content script for twitch.tv. It starts `src/app.ts`.                               |
+| `src/editor.ts`               | Reads and replaces text in the chat input.                                              |
+| `src/types.ts`                | The data types and the message name shared by both scripts.                             |
+| `src/popup.ts`                | The suggestion popup.                                                                   |
+| `tests/`                      | Unit tests for the parser and for the fetch and cache logic.                            |
+| `assets/icon.svg`             | Source for the PNG icons in `public/icon/`. It uses the Segoe UI Black font.            |
+| `scripts/build-icons.ts`      | Renders the icon SVG to PNG. It falls back to Arial Black if Segoe UI Black is missing. |
 
 ## How text goes into the chat box
 
