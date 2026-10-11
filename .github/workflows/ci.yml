@@ -60,3 +60,6 @@ jobs:
 
       - name: Build for Firefox
         run: pnpm build:firefox
+
+      - name: Build the userscript
+        run: pnpm build:userscript

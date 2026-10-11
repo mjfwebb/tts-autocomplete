@@ -27,7 +27,16 @@ The extension downloads the current voice and sound names from nice.gg once a da
 
 ## Install
 
-The extension is not in the Chrome Web Store or on addons.mozilla.org yet. You can download a built version, or build it yourself.
+The extension is not in the Chrome Web Store or on addons.mozilla.org yet. You can install it as a userscript, download a built version, or build it yourself.
+
+### Install as a userscript
+
+This is the easiest way if you already use a userscript manager such as [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/).
+
+1. Open [tts-autocomplete.user.js](https://github.com/mjfwebb/tts-autocomplete/releases/latest/download/tts-autocomplete.user.js).
+2. Confirm the install in your userscript manager.
+
+The manager installs updates from the same link. In Chrome and Brave, the manager also needs the "Allow User Scripts" setting. To find it, open the manager's details page in `chrome://extensions` or `brave://extensions`.
 
 ### Download a release
 
