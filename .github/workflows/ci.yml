@@ -29,6 +29,14 @@ jobs:
           node-version: 24
           cache: pnpm
 
+      - name: Check that actions are pinned to commit SHAs
+        run: |
+          # Every action from another repository must use a full 40-character commit SHA.
+          if grep -nE '^\s*-?\s*uses:' .github/workflows/*.yml | grep -vE '@[0-9a-f]{40}( |$)|uses: \./'; then
+            echo "Pin these actions to a full commit SHA, with the version in a comment."
+            exit 1
+          fi
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
