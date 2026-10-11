@@ -48,13 +48,17 @@ jobs:
           pnpm zip:firefox
           pnpm build:userscript
 
-      - name: Create the release
+      # A draft is not public and does not count as the latest release, so the
+      # userscript update link keeps serving the previous version until you
+      # write the notes and publish the draft on GitHub.
+      - name: Create a draft release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "$GITHUB_REF_NAME" \
+            --draft \
             --title "$GITHUB_REF_NAME" \
-            --generate-notes \
+            --notes "## Changes" \
             .output/*-chrome.zip \
             .output/*-firefox.zip \
             .output/tts-autocomplete.user.js
