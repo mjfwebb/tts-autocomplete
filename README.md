@@ -4,7 +4,9 @@ A browser extension that adds autocomplete for the `!tts` command to Twitch chat
 
 When you type a message that starts with `!tts`, a list of suggestions opens above the chat box. It suggests voices, sound effects and modifiers. When you type a modifier such as `-r`, it shows the valid values. If a value is out of range, for example `-r11`, it shows a warning.
 
-![Typing a !tts message in Twitch chat with voice, modifier and sound suggestions](docs/demo.gif)
+<p align="center">
+  <img src="docs/demo.gif" alt="Typing a !tts message in Twitch chat with voice, modifier and sound suggestions" width="480">
+</p>
 
 This project is not affiliated with or endorsed by Twitch. It uses the [MIT license](LICENSE).
 
