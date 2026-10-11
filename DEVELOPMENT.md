@@ -21,10 +21,12 @@ The CI workflow in `.github/workflows/ci.yml` runs on every push to `main` and o
 1. Make sure that `main` is up to date and that you have no uncommitted changes.
 2. Run `npm version patch -m "Release v%s"`. Use `minor` or `major` instead of `patch` for a bigger change, or give an exact version such as `0.2.0`.
 3. Push the commit and the tag with `git push --follow-tags`.
+4. When the release workflow finishes, open the draft release on the [Releases page](https://github.com/mjfwebb/tts-autocomplete/releases).
+5. Write the release notes for users, then click Publish release.
 
 Step 2 changes the version in `package.json`, commits it with a message such as "Release v0.2.0", and creates the matching tag, such as `v0.2.0`. npm comes with Node.js, and it refuses to run if you have uncommitted changes.
 
-The tag starts the release workflow in `.github/workflows/release.yml`. It runs the CI checks and makes sure that the tag matches the version in `package.json`. Then it builds the Chrome and Firefox zips and the userscript, and attaches them to a new GitHub release with generated notes. If the tag and the version do not match, the workflow stops before it creates a release.
+The tag starts the release workflow in `.github/workflows/release.yml`. It runs the CI checks and makes sure that the tag matches the version in `package.json`. Then it builds the Chrome and Firefox zips and the userscript, and attaches them to a new draft release. A draft is not public. Until you publish it, the userscript update link keeps serving the previous version. If the tag and the version do not match, the workflow stops before it creates a release.
 
 The Firefox zip is not signed, so Firefox only installs it as a temporary add-on.
 
