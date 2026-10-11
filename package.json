@@ -14,6 +14,7 @@
     "dev:firefox": "wxt -b firefox",
     "build": "wxt build",
     "build:firefox": "wxt build -b firefox",
+    "build:userscript": "node scripts/build-userscript.ts",
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "icons": "node scripts/build-icons.ts",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "@resvg/resvg-js": "2.6.2",
+    "esbuild": "0.28.2",
     "fallow": "3.33.1",
     "oxfmt": "0.72.0",
     "oxlint": "1.87.0",
