@@ -107,8 +107,14 @@ describe('getCompletions', () => {
     expect(inserts('!tts -downc')).toEqual(['-downchad']);
   });
 
+  it('waits for two letters before suggesting voices', () => {
+    expect(inserts('!tts o')).toEqual([]);
+    expect(inserts('!tts old: hello c')).toEqual([]);
+    expect(inserts('!tts r')).toEqual([]);
+  });
+
   it('completes voices with a colon, without duplicates', () => {
-    expect(inserts('!tts o')).toEqual(['old:']);
+    expect(inserts('!tts ol')).toEqual(['old:']);
     expect(inserts('!tts br')).toEqual(['Brian:']);
     expect(inserts('!tts rand')).toEqual(['randomvoice:']);
     expect(inserts('!tts old:')).toEqual([]);
