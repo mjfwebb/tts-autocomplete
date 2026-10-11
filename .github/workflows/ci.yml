@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   pull_request:
+  # The release workflow runs these same checks before it builds a release.
+  workflow_call:
 
 # The workflow only reads the repository. Nothing in it needs write access.
 permissions:
@@ -26,6 +28,14 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
+
+      - name: Check that actions are pinned to commit SHAs
+        run: |
+          # Every action from another repository must use a full 40-character commit SHA.
+          if grep -nE '^\s*-?\s*uses:' .github/workflows/*.yml | grep -vE '@[0-9a-f]{40}( |$)|uses: \./'; then
+            echo "Pin these actions to a full commit SHA, with the version in a comment."
+            exit 1
+          fi
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
