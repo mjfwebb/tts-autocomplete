@@ -4,6 +4,8 @@ A browser extension that adds autocomplete for the `!tts` command to Twitch chat
 
 When you type a message that starts with `!tts`, a list of suggestions opens above the chat box. It suggests voices, sound effects and modifiers. When you type a modifier such as `-r`, it shows the valid values. If a value is out of range, for example `-r11`, it shows a warning.
 
+![Typing a !tts message in Twitch chat with voice, modifier and sound suggestions](docs/demo.gif)
+
 This project is not affiliated with or endorsed by Twitch. It uses the [MIT license](LICENSE).
 
 ## Keys
@@ -15,7 +17,7 @@ This project is not affiliated with or endorsed by Twitch. It uses the [MIT lice
 | Enter              | Accepts a suggestion after you use the arrows. Otherwise it sends the message. |
 | Escape             | Closes the list until you change the message.                                  |
 
-The extension adds a space after a complete word, such as a sound or a voice. After a modifier that needs a value, such as `-r`, it puts the cursor directly after the modifier so that you can type the value.
+Voices appear after you type two letters of a word, so ordinary words do not open the list. The extension adds a space after a complete word, such as a sound or a voice. After a modifier that needs a value, such as `-r`, it puts the cursor directly after the modifier so that you can type the value.
 
 When no suggestion matches, the extension does not use Tab. Tab then goes to your emote extension as usual. The extension was tested with BetterTTV, FrankerFaceZ and 7TV.
 

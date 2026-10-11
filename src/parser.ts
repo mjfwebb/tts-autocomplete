@@ -6,6 +6,8 @@ const RANDOM_VOICE = 'randomvoice:';
 const RANDOM_SOUND = 'random';
 /** Sound names need this many characters after the dash before substring matches appear. */
 const SUBSTRING_MIN = 2;
+/** Plain words need this many letters before voices appear, so ordinary words do not pop up voices. */
+const VOICE_MIN = 2;
 
 /** Modifiers that take a sound name as their argument, such as -up. */
 const SOUND_ARG_MODIFIERS = MODIFIERS.filter((m) => m.arg === 'sound');
@@ -111,7 +113,7 @@ function dashSuggestions(index: Index, prefix: string): Suggestion[] {
 }
 
 function voiceSuggestions(index: Index, prefix: string): Suggestion[] {
-  if (prefix.endsWith(':')) return [];
+  if (prefix.length < VOICE_MIN || prefix.endsWith(':')) return [];
   const query = prefix.toLowerCase();
   const out: Suggestion[] = [];
   if (RANDOM_VOICE.startsWith(query)) {
