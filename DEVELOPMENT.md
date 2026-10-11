@@ -16,6 +16,17 @@ To make a production build, run `pnpm build` for Chrome and Brave, or `pnpm buil
 
 The CI workflow in `.github/workflows/ci.yml` runs on every push to `main` and on every pull request. It runs lint, the format check, fallow, the type check, the tests and both builds.
 
+## Releases
+
+1. Change `version` in `package.json`, for example to `0.2.0`.
+2. Commit the change and push it to `main`.
+3. Create a matching tag with `git tag v0.2.0`.
+4. Push the tag with `git push origin v0.2.0`.
+
+The tag starts the release workflow in `.github/workflows/release.yml`. It runs the CI checks and makes sure that the tag matches the version in `package.json`. Then it builds the Chrome and Firefox zips and attaches them to a new GitHub release with generated notes. If the tag and the version do not match, the workflow stops before it creates a release.
+
+The Firefox zip is not signed, so Firefox only installs it as a temporary add-on.
+
 ## Layout
 
 | Path                        | Contents                                                                                |

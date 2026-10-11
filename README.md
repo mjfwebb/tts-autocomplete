@@ -23,25 +23,33 @@ The extension downloads the current voice and sound names from nice.gg once a da
 
 ## Install
 
-The extension is not in the Chrome Web Store or on addons.mozilla.org yet. To install it, build it from this repository first.
+The extension is not in the Chrome Web Store or on addons.mozilla.org yet. You can download a built version, or build it yourself.
+
+### Download a release
+
+1. Open the [Releases page](https://github.com/mjfwebb/tts-autocomplete/releases).
+2. Download `tts-autocomplete-<version>-chrome.zip` for Chrome and Brave, or `tts-autocomplete-<version>-firefox.zip` for Firefox.
+3. For Chrome and Brave, unzip the file into a folder that you keep. The browser loads the extension from that folder every time it starts.
+
+### Build it yourself
 
 1. Install [Node.js](https://nodejs.org/) 24 and [pnpm](https://pnpm.io/) 10.
 2. Clone this repository with `git clone https://github.com/mjfwebb/tts-autocomplete.git`.
 3. In the `tts-autocomplete` folder, run `pnpm install`.
 4. Run `pnpm build` for Chrome and Brave, or `pnpm build:firefox` for Firefox.
 
-### Chrome and Brave
+### Load it in Chrome or Brave
 
 1. Open `chrome://extensions` in Chrome, or `brave://extensions` in Brave.
 2. Turn on Developer mode.
 3. Click Load unpacked.
-4. Select the `.output/chrome-mv3` folder.
+4. Select the folder that you unzipped. If you built the extension, select the `.output/chrome-mv3` folder.
 
-### Firefox
+### Load it in Firefox
 
 1. Open `about:debugging#/runtime/this-firefox`.
 2. Click Load Temporary Add-on.
-3. Select the file `.output/firefox-mv2/manifest.json`.
+3. Select the downloaded zip file. If you built the extension, select the file `.output/firefox-mv2/manifest.json`.
 
 If you close Firefox, it removes the temporary add-on. A permanent install needs a version signed by addons.mozilla.org.
 
